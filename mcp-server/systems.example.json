@@ -1,0 +1,100 @@
+{
+  "prdEnabled": false,
+  "_comment": "连接参数(不含密码)。复制本文件为 systems.json 并填入你的环境。密码绝不存这里——每次会话经 sap_connect 注入进程内存。client/实例号/role 按你的环境自定义。",
+  "envs": {
+    "DVP": {
+      "appServerHost": "<DVP应用服务器IP>",
+      "systemNumber": "00",
+      "client": "200",
+      "user": "<你的SAP用户名>",
+      "language": "ZH",
+      "role": "dev"
+    },
+    "QAS": {
+      "appServerHost": "<QAS应用服务器IP>",
+      "systemNumber": "00",
+      "client": "800",
+      "user": "<你的SAP用户名>",
+      "language": "ZH",
+      "role": "test"
+    },
+    "PRD": {
+      "appServerHost": "<PRD应用服务器IP>",
+      "systemNumber": "00",
+      "client": "800",
+      "user": "<你的SAP用户名>",
+      "language": "ZH",
+      "role": "prod"
+    }
+  },
+  "qasGetWhitelist": [
+    "RFC_READ_TABLE",
+    "DDIF_FIELDINFO_GET",
+    "FUNCTION_IMPORT_INTERFACE",
+    "RPY_FUNCTIONMODULE_READ",
+    "STFC_CONNECTION",
+    "DDIF_TABL_GET",
+    "RFC_SYSTEM_INFO",
+    "ZLILY_DIAG_READ_SOURCE",
+    "ZLILY_DIAG_READ_INCL",
+    "ZLILY_DIAG_READ_INCL2",
+    "ZLILY_DIAG_READ_INCL3",
+    "RPY_PROGRAM_READ",
+    "ZLILY_DIAG_READ_INCL4",
+    "ZLILY_DIAG_READ_INCL5",
+    "ZLILY_DIAG_UNPACK",
+    "ENQUEUE_READ",
+    "SWNC_GET_WORKLOAD_STATISTIC",
+    "SWNC_GET_WORKLOAD_DIRECTORY",
+    "SAPWL_WORKLOAD_GET_SUMMARY"
+  ],
+  "qasGetWhitelistRegex": [
+    "^BAPI_.*_GET[A-Z0-9]*$",
+    "^BAPI_.*_LIST[A-Z0-9]*$",
+    "^BAPI_.*_READ[A-Z0-9]*$",
+    "^BAPI_.*_DETAIL[A-Z0-9]*$",
+    "^BAPI_HELPVALUES$"
+  ],
+  "fmBlocklist": [
+    "BAPI_TRANSACTION_COMMIT",
+    "BAPI_TRANSACTION_ROLLBACK",
+    "^TR_.*",
+    "^RFC_.*_UPDATE$"
+  ],
+  "writePatternsForceTestrun": [
+    "_CHANGE$",
+    "_POST$",
+    "_UPDATE$",
+    "_DELETE$",
+    "_SAVE$",
+    "_CREATE$"
+  ],
+  "dvpReadFmWhitelistRegex": [
+    "^BAPI_.*_GET[A-Z0-9]*$",
+    "^BAPI_.*_LIST[A-Z0-9]*$",
+    "^BAPI_.*_READ[A-Z0-9]*$",
+    "^BAPI_.*_DETAIL[A-Z0-9]*$",
+    "^STFC_",
+    "^RFC_READ_",
+    "^DDIF_",
+    "^FUNCTION_IMPORT_INTERFACE$",
+    "^RPY_FUNCTIONMODULE_READ$",
+    "^RFC_SYSTEM_INFO$",
+    "^BAPI_HELPVALUES$",
+    "^RS_SYNTAX_CHECK$",
+    "^ENQUEUE_READ$",
+    "^SWNC_GET_WORKLOAD_(STATISTIC|DIRECTORY)$",
+    "^SAPWL_WORKLOAD_GET_SUMMARY$",
+    "^ZLILY_"
+  ],
+  "audit": {
+    "dir": "./data/sap-mcp-audit",
+    "retentionDays": 30,
+    "maxRowsHardCap": 1000
+  },
+  "rfcReadTable": {
+    "waCharLimit": 512,
+    "defaultMaxRows": 100,
+    "absoluteMaxRows": 1000
+  }
+}

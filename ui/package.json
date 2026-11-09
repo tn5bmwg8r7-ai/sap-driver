@@ -1,0 +1,7 @@
+{
+  "name": "sap-driver-ui",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "SAP Driver 前端 UI 层(ES modules,浏览器直接加载,无构建步骤)"
+}

@@ -1,0 +1,16 @@
+{
+  "_comment": "PRD 执行白名单——仅限查询类自定义函数(函数排查在 PRD 定位用)。支持精确名或 ^regex$(含 ^ $ . * 等元字符即按正则匹配)。每次调用现读,改完即生效,无需重启 facade。全局黑名单(COMMIT/ROLLBACK/TR_)仍然优先拒绝。",
+  "fms": [
+    "ENQUEUE_READ",
+    "RFC_SYSTEM_INFO",
+    "SWNC_GET_WORKLOAD_STATISTIC",
+    "SWNC_GET_WORKLOAD_DIRECTORY",
+    "SAPWL_WORKLOAD_GET_SUMMARY",
+    "ZLILY_REPORT_META",
+    "ZLILY_REPORT_SCAN",
+    "ZLILY_REPORT_RUN2",
+    "ZLILY_REPORT_SPOOL",
+    "Z_APPROVER_GET",
+    "Z_BPM_GET_FORM_HT"
+  ]
+}

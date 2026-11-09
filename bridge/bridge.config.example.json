@@ -1,0 +1,23 @@
+{
+  "_comment": "复制本文件为 bridge.config.json 后按你的环境改。字段详解见 docs/部署.md",
+  "host": "127.0.0.1",
+  "port": 8421,
+  "allowedOrigins": [
+    "http://localhost:*",
+    "http://127.0.0.1:*",
+    "http://192.168.*:*",
+    "http://10.*:*"
+  ],
+  "tokenFile": "%LOCALAPPDATA%\sap-driver\bridge.token",
+  "routeMaxSec": 600,
+  "ai": {
+    "_comment": "AI 双通道(GLM 主 + OpenAI 兼容备胎)。GLM 凭证走环境变量 ANTHROPIC_BASE_URL/ANTHROPIC_AUTH_TOKEN(不落盘);备胎写这里(bridge.config.local.json 优先,误提交不入库)",
+    "primary": "glm",
+    "autoFallback": true,
+    "cooldownMinutes": 10,
+    "glmModel": "glm-5.3-flash",
+    "deepseekBaseUrl": "",
+    "deepseekKey": "",
+    "deepseekModel": ""
+  }
+}

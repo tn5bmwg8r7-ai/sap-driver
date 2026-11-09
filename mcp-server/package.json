@@ -1,0 +1,19 @@
+{
+  "name": "sap-mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "SAP MCP Server — governed read/diagnose access to SAP via NCo RFC (three-env governance, passwords memory-only)",
+  "main": "src/server.js",
+  "bin": {
+    "sap-mcp": "src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  }
+}
