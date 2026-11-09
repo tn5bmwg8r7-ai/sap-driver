@@ -43,7 +43,15 @@ SAP RFC(ZLILY_DIAG_Q3 等自研 RFC)   mcp-server/(Node.js MCP stdio + http-faca
 3. **配置环境**(`mcp-server/systems.json` + `bridge/routes/_sap-conn.ps1` 填你的三环境地址;全部密码走会话注入,绝不落盘)
 4. **起桥**(`bridge/Start-Bridge.ps1`,token 自动生成)
 5. **起 MCP**(`mcp-server/`,`npm install` 后在 Claude Code 注册)
-6. **打开 UI**(任意静态服务器 serve `ui/`,或挂进你自己的工作台)
+6. **打开 UI**(任意静态服务器 serve `ui/`,浏览器开 `ui/demo.html` 一览全部页签——无桥也能看 UI 骨架与 Skill 地图;接桥后自动全功能;或按 `ui/README.md` 挂进你自己的工作台)
+
+> 想先看长什么样再决定要不要部署?第 1~5 步全跳过,直接 `python -m http.server 8080` 在 `ui/` 目录起个静态服务器,开 `http://localhost:8080/demo.html` 即可。
+
+## 演示壳与执行通道说明
+
+- **`ui/demo.html`** 是最小演示壳:不开 bridge、不连 SAP,UI 全部页签(排查/体检/负载周报/Agent/产物/Skill 地图/交付驾驶舱)可点可看,数据操作会提示连接失败(预期)。注意:若本机恰有别的服务占用同端口且放行该 Origin,页面会连上它——公开演示请用干净环境。
+- **Skill 地图里的 `cc` 类卡片**(开发实施/需求评审/交付台账等):执行通道在 Claude Code 侧的技能(CLAUDE.md/SLASH-COMMAND 形态),**不在本仓内**——卡片点击复制的是触发话术,需你自建对应技能后才能跑通。流水线骨架(`ui/widgets/sap-flow.pipeline.js`:8 节点/5 硬闸/6 通道)是纯数据定义,可直接复用。
+- **SAP 侧 RFC 完整清单**:仓内 `z-rfc/` 含 12 个;`sap_variant_read/write`、`sap_dev_create(SOURCE_UPDATE/TABL)`、`sap_dev_delete` 依赖的 5 个 RFC(GEN_EXEC/SRC_PUT8/DEL/TBL_MK3/REPORT_META)源码未随仓分发——这些工具在未自建对应 RFC 的系统上会报 RFC_NOT_FOUND,属预期。其余 14 个工具只依赖仓内 12 个 RFC。
 
 ## 安全设计
 

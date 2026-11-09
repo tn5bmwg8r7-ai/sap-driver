@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAP Driver — Demo 壳</title>
+<!--
+  demo.html — SAP Driver 最小演示壳(v1,2026-11-09)。
+
+  作用:不开 bridge、不连 SAP,也能直接看到 SAP Driver 的全部页签 UI:
+  排查 / 体检 / 负载周报 / Agent / 产物 / Skill 地图 / 交付驾驶舱(世另我)。
+  所有数据操作会因桥未启动而显示连接失败——这是预期行为;UI 骨架、
+  页签结构、Skill 地图、流水线节点/闸门定义全部可见可点。
+
+  真实部署(接桥):见仓库 README「快速开始」+ docs/部署.md;
+  把本壳挂进你自己的工作台:见 ui/README.md 的 A 方式(WidgetRegistry.mount)。
+-->
+<style>
+  html, body { margin: 0; height: 100%; background: #f5f6f8; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+  #demo-banner {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding: 8px 16px; background: #1e293b; color: #cbd5e1; font-size: 13px;
+  }
+  #demo-banner b { color: #fff; }
+  #demo-banner a { color: #7dd3fc; text-decoration: none; }
+  #demo-banner .hint { color: #94a3b8; }
+  #demo-host { height: calc(100% - 37px); }
+</style>
+<script>
+  // 部署配置注入(见 ui/shell/app-config.js):
+  // - features:['sap'] 只开 SAP Driver(feature 白名单分发闸)
+  // - storagePrefix/dbName 用独立前缀,避免和任何既有工作台共用 IndexedDB/localStorage
+  window.__APP_CONFIG__ = {
+    storagePrefix: 'sapdriver-demo:',
+    dbName: 'sap-driver-demo',
+    bridgePort: 8421,
+    features: ['sap']
+  };
+</script>
+</head>
+<body>
+  <div id="demo-banner">
+    <b>🚗 SAP Driver</b>
+    <span>演示壳</span>
+    <span class="hint">— 未启动 bridge,数据操作会提示连接失败(预期);UI/Skill 地图/驾驶舱结构完整可览</span>
+    <a href="https://github.com/tn5bmwg8r7-ai/sap-driver" target="_blank" rel="noopener">仓库</a>
+    <a href="../docs/部署.md" target="_blank" rel="noopener">部署文档</a>
+  </div>
+  <div id="demo-host"></div>
+<script type="module">
+  import { WidgetRegistry } from './registry/widget-registry.js';
+  import './widgets/sap-copilot.widget.js';   // import 即自注册(id='sap-copilot', feature='sap')
+  // 交付驾驶舱(🚰 flow)已内嵌为 sap-copilot 的「SAP数字员工」页签,无需单独挂载。
+
+  const host = document.getElementById('demo-host');
+  const manifest = WidgetRegistry.get('sap-copilot');
+  if (!manifest) {
+    host.innerHTML = '<div style="padding:40px;color:#b91c1c;">widget 注册失败:请检查浏览器 ES modules 支持(Chrome/Edge 90+)与本页是否经 HTTP 访问(file:// 直开会因 CORS 拒载模块)。</div>';
+  } else {
+    manifest.mount(host, manifest.settings || {});
+  }
+</script>
+</body>
+</html>
