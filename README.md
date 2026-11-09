@@ -31,7 +31,7 @@ SAP RFC(ZLILY_DIAG_Q3 等自研 RFC)   mcp-server/(Node.js MCP stdio + http-faca
 - **bridge/** — 本地 HTTP 桥(22+ 条 SAP 路由 + 交付台账窄写),token 鉴权 + Origin 白名单 + worker 池并发
 - **mcp-server/** — MCP 服务器(19 个工具):读表/读元数据/读源码/跑只读 FM/变式读写 + 开发机 Z/Y 对象 CRUD,三环境治理 + JSONL 审计
 - **rfc-frontend/** — NCo 3.1 RFC 前端(PowerShell `Invoke-SapRfc` + C# `SapRfcCli`)
-- **mcp-server/z-rfc/** — SAP 侧 12 个自研 RFC 的 ABAP 源码(诊断查询引擎 Q3 / 变式读写 / 报表族)
+- **mcp-server/z-rfc/** — SAP 侧 17 个自研 RFC 的 ABAP 源码(诊断查询引擎 Q3 / 变式读写 / 报表族 / 开发机 CRUD)
 - **docs/** — 部署文档
 
 ## 快速开始
@@ -51,7 +51,7 @@ SAP RFC(ZLILY_DIAG_Q3 等自研 RFC)   mcp-server/(Node.js MCP stdio + http-faca
 
 - **`ui/demo.html`** 是最小演示壳:不开 bridge、不连 SAP,UI 全部页签(排查/体检/负载周报/Agent/产物/Skill 地图/交付驾驶舱)可点可看,数据操作会提示连接失败(预期)。注意:若本机恰有别的服务占用同端口且放行该 Origin,页面会连上它——公开演示请用干净环境。
 - **Skill 地图里的 `cc` 类卡片**(开发实施/需求评审/交付台账等):执行通道在 Claude Code 侧的技能(CLAUDE.md/SLASH-COMMAND 形态),**不在本仓内**——卡片点击复制的是触发话术,需你自建对应技能后才能跑通。流水线骨架(`ui/widgets/sap-flow.pipeline.js`:8 节点/5 硬闸/6 通道)是纯数据定义,可直接复用。
-- **SAP 侧 RFC 完整清单**:仓内 `z-rfc/` 含 12 个;`sap_variant_read/write`、`sap_dev_create(SOURCE_UPDATE/TABL)`、`sap_dev_delete` 依赖的 5 个 RFC(GEN_EXEC/SRC_PUT8/DEL/TBL_MK3/REPORT_META)源码未随仓分发——这些工具在未自建对应 RFC 的系统上会报 RFC_NOT_FOUND,属预期。其余 14 个工具只依赖仓内 12 个 RFC。
+- **SAP 侧 RFC**:仓内 `z-rfc/` 含 17 个,全部工具的 SAP 侧依赖均已覆盖(变式读写走 GEN_EXEC、开发机 CRUD 走 SRC_PUT8/DEL/TBL_MK3、报表族走 REPORT_META/RUN2/SCAN/SPOOL)。
 
 ## 安全设计
 
