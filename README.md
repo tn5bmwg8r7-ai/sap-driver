@@ -50,7 +50,7 @@ SAP RFC(ZLILY_DIAG_Q3 等自研 RFC)   mcp-server/(Node.js MCP stdio + http-faca
 ## 演示壳与执行通道说明
 
 - **`ui/demo.html`** 是最小演示壳:不开 bridge、不连 SAP,UI 全部页签(排查/体检/负载周报/Agent/产物/Skill 地图/交付驾驶舱)可点可看,数据操作会提示连接失败(预期)。注意:若本机恰有别的服务占用同端口且放行该 Origin,页面会连上它——公开演示请用干净环境。
-- **Skill 地图里的 `cc` 类卡片**(开发实施/需求评审/交付台账等):执行通道在 Claude Code 侧的技能(CLAUDE.md/SLASH-COMMAND 形态),**不在本仓内**——卡片点击复制的是触发话术,需你自建对应技能后才能跑通。流水线骨架(`ui/widgets/sap-flow.pipeline.js`:8 节点/5 硬闸/6 通道)是纯数据定义,可直接复用。
+- **Skill 地图里的 `cc` 类卡片**(开发实施/需求评审/交付台账等):执行通道在 Claude Code 侧的技能(CLAUDE.md/SLASH-COMMAND 形态),**不在本仓内**——卡片点击复制的是触发话术,需你自建对应技能后才能跑通。**自建方法见 [docs/skill-guide.md](docs/skill-guide.md)**:review/build/ledger/flow 四角色分工 + 质量闸方法论 + 坑账驱动增长,5 分钟造出第一个。流水线骨架(`ui/widgets/sap-flow.pipeline.js`:8 节点/5 硬闸/6 通道)是纯数据定义,可直接复用。
 - **SAP 侧 RFC**:仓内 `z-rfc/` 含 17 个,全部工具的 SAP 侧依赖均已覆盖(变式读写走 GEN_EXEC、开发机 CRUD 走 SRC_PUT8/DEL/TBL_MK3、报表族走 REPORT_META/RUN2/SCAN/SPOOL)。
 
 ## 安全设计
