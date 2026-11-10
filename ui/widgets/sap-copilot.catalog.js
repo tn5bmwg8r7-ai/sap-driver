@@ -67,7 +67,9 @@ export const SAP_CATALOG = [
   { id: 'sap_lint', cat: 'code', type: 'builtin', name: 'SQL 代码质量审查', icon: '📏',
     desc: '填程序/函数/事务码,按五关准则静态把关:零循环内 SELECT / WHERE 命中主键·二级索引(DD03L+DD17S 实查)/ FOR ALL ENTRIES 三要素 / 同表多次取数 / 聚合下推;违规带行号+源码片段,SELECT 逐条审计,能力边界如实声明;结果按源码指纹缓存。入口 = 「🔍 排查」页签「📏 质量审查」形态,点这里直达。' },
   { id: 'sap-build', cat: 'code', type: 'cc', trigger: '开发实施', name: '开发实施', icon: '🛠️',
-    desc: '生成 ABAP → 质量闸(ECC7.02 禁用词+SQL 五关,FAIL 一票否决)→ DVP 建 Z/Y 对象+挂 TR(函数/函数组/表全自动,程序半自动)→ 交付自证必附实测数字。写类工具不走 Driver,执行在 Claude Code:说「开发实施/建函数/建表/挂TR」触发(sap-build)。' },
+    desc: '生成 ABAP → 双机器闸(①落库前 Check-Declarations 声明闭环/前向引用/TYPES-vs-DATA 五查 ②落库后 SAP 侧 SYNTAX-CHECK,报错行号机器取回)→ 读回 diff=0 → 才交用户激活(用户永不当激活测试机)→ DVP 建 Z/Y 对象+挂 TR → 交付自证必附实测数字。v1.3(11-09 ZFIR028 四连炸定型)。写类工具不走 Driver,执行在 Claude Code:说「开发实施/建函数/建表/挂TR」触发(sap-build)。' },
+  { id: 'sap_dev_gate', cat: 'code', type: 'cc', trigger: '检查声明语法', name: '开发静态闸', icon: '🛡️',
+    desc: 'ABAP 落库两道机器闸(v1.3):①Check-Declarations.ps1 声明五查(变量声明闭环/前向引用/TYPE 引用类型已定义/LIKE 对象声明在前/内表必须是 DATA 对象非 TYPES 类型名)——Claude Code 说「检查声明/跑声明审计」即调;②GEN_EXEC 池跑 SAP 原生 SYNTAX-CHECK,报错行号/词/消息机器取回=SE38 激活原文。闸序焊死:声明审计 PASS→落库→SYNTAX-CHECK PASS→diff=0→才交用户激活。' },
 
   // ============ 执行测试 ============
   { id: 'sap_fm_exec', cat: 'test', type: 'mcp', name: '执行只读 FM/BAPI', icon: '▶️',
